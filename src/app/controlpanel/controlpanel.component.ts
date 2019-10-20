@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from "@angular/core";
 
 @Component({
-  selector: 'app-controlpanel',
-  templateUrl: './controlpanel.component.html',
-  styleUrls: ['./controlpanel.component.css']
+  selector: "app-controlpanel",
+  templateUrl: "./controlpanel.component.html",
+  styleUrls: ["./controlpanel.component.css"]
 })
-export class ControlpanelComponent implements OnInit {
+export class ControlpanelComponent implements OnInit, OnChanges {
+  sizeCellPad: number;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
+  ngOnInit() {}
+  ngOnChanges() {}
+
+  resizeCellPad(): void {
+    // this.sizeCellPad =
+    console.log(this.sizeCellPad);
   }
-
 }

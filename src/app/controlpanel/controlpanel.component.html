@@ -4,11 +4,15 @@
   <div class="col-2"></div>
   <div class="col-3">
     Cell Pad Size:
-    <input type="text" />
+    <input type="number" [(ngModel)]="sizeCellPad" />
   </div>
   <div class="col-2">
-    <button type="button" class="btn btn-outline-primary">
-      Reload Cell Pad
+    <button
+      type="button"
+      class="btn btn-outline-primary"
+      (click)="resizeCellPad()"
+    >
+      Resize Cell Pad
     </button>
   </div>
   <div class="col-2">
