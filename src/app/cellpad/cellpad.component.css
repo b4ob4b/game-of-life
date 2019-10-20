@@ -1,0 +1,21 @@
+.cell {
+  background-color: #ccf2ff;
+  color: #ccf2ff;
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+  border: 2px solid #0086b3;
+  border-radius: 5px;
+}
+.cell:hover {
+  background-color: #0096cc;
+  color: #0096cc;
+}
+
+.row {
+  display: inline-block;
+}
+
+.playground {
+  text-align: center;
+}

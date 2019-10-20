@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { CellpadComponent } from './cellpad/cellpad.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CellpadComponent
   ],
   imports: [
     BrowserModule
