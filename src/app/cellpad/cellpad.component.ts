@@ -1,12 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 
+const CELL_PAD_SIZE: number = 10;
 @Component({
   selector: "app-cellpad",
   templateUrl: "./cellpad.component.html",
   styleUrls: ["./cellpad.component.css"]
 })
-const CELL_PAD_SIZE: number = 10;
-
 export class CellpadComponent implements OnInit {
   height: number[];
   width: number[];
