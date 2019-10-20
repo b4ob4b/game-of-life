@@ -1,7 +1,15 @@
 <div class="playground">
-  <div *ngFor="let row of height" class="row">
-    <div *ngFor="let column of width">
-      <div class="cell">.</div>
+  <div *ngFor="let x of height" class="row">
+    <div *ngFor="let y of width">
+      <div
+        class="cell"
+        (click)="changeStatus(x, y)"
+        [ngClass]="{ living: livingCells[x][y] }"
+      >
+        .
+      </div>
     </div>
   </div>
 </div>
+
+<!-- [ngClass]="{ celldead: !livingCells[x][y] }" -->
