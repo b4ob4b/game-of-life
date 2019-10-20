@@ -1,12 +1,14 @@
 <div class="playground">
   <div *ngFor="let x of height" class="row">
     <div *ngFor="let y of width">
-      <div
-        class="cell"
-        (click)="changeStatus(x, y)"
-        [ngClass]="{ living: livingCells[x][y] }"
-      >
-        .
+      <div class="col">
+        <div
+          class="cell"
+          (click)="changeStatus(x, y)"
+          [ngClass]="{ living: livingCells[x][y] }"
+        >
+          .
+        </div>
       </div>
     </div>
   </div>
