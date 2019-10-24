@@ -1,17 +1,22 @@
+<app-controlpanel (resizeClicked)="onResizeClicked($event)"></app-controlpanel>
+
 <div class="playground">
-  <div *ngFor="let x of height" class="row">
-    <div *ngFor="let y of width">
-      <div class="col">
-        <div
-          class="cell"
-          (click)="changeStatus(x, y)"
-          [ngClass]="{ living: livingCells[x][y] }"
-        >
-          .
+  <div *ngFor="let x of width" style="display:inline">
+    <div class="row">
+      <div *ngFor="let y of height">
+        <div class="col">
+          <div
+            class="cell"
+            (click)="changeStatus(x, y)"
+            [ngClass]="{ living: livingCells[x][y] }"
+          >
+            .
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- [ngClass]="{ celldead: !livingCells[x][y] }" -->
+<!-- (click)="changeStatus(x, y)"
+[ngClass]="{ living: livingCells[x][y] }" -->

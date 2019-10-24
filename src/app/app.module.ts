@@ -8,7 +8,7 @@ import { ControlpanelComponent } from "./controlpanel/controlpanel.component";
 @NgModule({
   declarations: [AppComponent, CellpadComponent, ControlpanelComponent],
   imports: [BrowserModule, FormsModule],
-  providers: [],
+  providers: [ControlpanelComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
