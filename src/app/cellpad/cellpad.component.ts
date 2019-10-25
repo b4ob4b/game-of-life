@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { ControlpanelComponent } from "../controlpanel/controlpanel.component";
 
-// const CELL_PAD_SIZE: number = 10;
 @Component({
   selector: "app-cellpad",
   templateUrl: "./cellpad.component.html",
@@ -11,30 +10,24 @@ export class CellpadComponent {
   height: number[];
   width: number[];
   livingCells: boolean[][];
+  populationIndex: number[][];
 
   constructor(private controller: ControlpanelComponent) {
     this.changeCellPadSize(controller.sizeCellPad);
-    this.livingCells = [];
-
-    for (var i: number = 0; i < controller.sizeCellPad; i++) {
-      this.livingCells[i] = [];
-      for (var j: number = 0; j < controller.sizeCellPad; j++) {
-        this.livingCells[i][j] = false;
-      }
-    }
   }
 
   onResizeClicked(cellPadSize: number): void {
-    console.log("Call from cellPad: " + cellPadSize);
     this.changeCellPadSize(cellPadSize);
   }
 
+  onStartEvolutionClicked(): void {
+    this.checkNextLiveCycle();
+  }
+
   changeStatus(xCoordinate: number, yCoordinate: number): void {
-    console.log("clicked: x=" + xCoordinate + " y=" + yCoordinate);
     this.livingCells[xCoordinate][yCoordinate] = !this.livingCells[xCoordinate][
       yCoordinate
     ];
-    console.log("status=" + this.livingCells[xCoordinate][yCoordinate]);
   }
 
   changeCellPadSize(sizeCellPad): void {
@@ -46,12 +39,49 @@ export class CellpadComponent {
       .map((x, i) => i);
 
     this.livingCells = [];
+    this.populationIndex = [];
     for (var i: number = 0; i < sizeCellPad; i++) {
       this.livingCells[i] = [];
+      this.populationIndex[i] = [];
       for (var j: number = 0; j < sizeCellPad; j++) {
         this.livingCells[i][j] = false;
+        this.populationIndex[i][j] = 0;
       }
     }
-    console.log("height: " + this.height + "\nwidth: " + this.width);
+  }
+
+  checkNeighbours(): void {
+    for (var i: number = 1; i < this.livingCells.length - 1; i++) {
+      for (var j: number = 1; j < this.livingCells.length - 1; j++) {
+        this.populationIndex[i][j] =
+          Number(this.livingCells[i - 1][j - 1]) +
+          Number(this.livingCells[i - 1][j]) +
+          Number(this.livingCells[i - 1][j + 1]) +
+          Number(this.livingCells[i][j - 1]) +
+          Number(this.livingCells[i][j + 1]) +
+          Number(this.livingCells[i + 1][j - 1]) +
+          Number(this.livingCells[i + 1][j]) +
+          Number(this.livingCells[i + 1][j + 1]);
+      }
+    }
+  }
+
+  checkNextLiveCycle(): void {
+    this.checkNeighbours();
+    for (var i: number = 0; i < this.livingCells.length; i++) {
+      for (var j: number = 0; j < this.livingCells.length; j++) {
+        if (!this.livingCells[i][j] && this.populationIndex[i][j] == 3) {
+          this.livingCells[i][j] = true;
+        }
+        if (this.livingCells[i][j]) {
+          if (
+            this.populationIndex[i][j] < 2 ||
+            this.populationIndex[i][j] > 3
+          ) {
+            this.livingCells[i][j] = false;
+          }
+        }
+      }
+    }
   }
 }

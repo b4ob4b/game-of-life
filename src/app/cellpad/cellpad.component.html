@@ -1,4 +1,7 @@
-<app-controlpanel (resizeClicked)="onResizeClicked($event)"></app-controlpanel>
+<app-controlpanel
+  (resizeClicked)="onResizeClicked($event)"
+  (startEvolutionClicked)="onStartEvolutionClicked($event)"
+></app-controlpanel>
 
 <div class="playground">
   <div *ngFor="let x of width" style="display:inline">
