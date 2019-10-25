@@ -11,6 +11,8 @@ export class CellpadComponent {
   width: number[];
   livingCells: boolean[][];
   populationIndex: number[][];
+  isEvolutionRunning: boolean = false;
+  private autoSaveInterval: number;
 
   constructor(private controller: ControlpanelComponent) {
     this.changeCellPadSize(controller.sizeCellPad);
@@ -18,10 +20,21 @@ export class CellpadComponent {
 
   onResizeClicked(cellPadSize: number): void {
     this.changeCellPadSize(cellPadSize);
+    this.isEvolutionRunning = false;
   }
 
   onStartEvolutionClicked(): void {
-    this.checkNextLiveCycle();
+    console.log(this.isEvolutionRunning);
+    if (!this.isEvolutionRunning) {
+      this.autoSaveInterval = window.setInterval(
+        () => this.checkNextLiveCycle(),
+        200
+      );
+      this.isEvolutionRunning = !this.isEvolutionRunning;
+    } else {
+      window.clearInterval(this.autoSaveInterval);
+      this.isEvolutionRunning = !this.isEvolutionRunning;
+    }
   }
 
   changeStatus(xCoordinate: number, yCoordinate: number): void {
@@ -44,7 +57,7 @@ export class CellpadComponent {
       this.livingCells[i] = [];
       this.populationIndex[i] = [];
       for (var j: number = 0; j < sizeCellPad; j++) {
-        this.livingCells[i][j] = false;
+        this.livingCells[i][j] = Math.random() >= 0.5;
         this.populationIndex[i][j] = 0;
       }
     }
