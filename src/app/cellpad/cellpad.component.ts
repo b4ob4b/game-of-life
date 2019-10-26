@@ -29,10 +29,10 @@ export class CellpadComponent {
         () => this.checkNextLiveCycle(),
         200
       );
-      this.evolutionIsRunning = !this.evolutionIsRunning;
+      this.evolutionIsRunning = true;
     } else {
       window.clearInterval(this.autoSaveInterval);
-      this.evolutionIsRunning = !this.evolutionIsRunning;
+      this.evolutionIsRunning = false;
     }
   }
 
@@ -80,20 +80,25 @@ export class CellpadComponent {
 
   checkNextLiveCycle(): void {
     this.checkNeighbours();
-    var sum: number = 0;
-    this.populationIndex.forEach(n => n.forEach(n => (sum += n)));
-    console.log("sum: " + sum);
-    for (var i: number = 0; i < this.livingCells.length; i++) {
-      for (var j: number = 0; j < this.livingCells.length; j++) {
-        if (!this.livingCells[i][j] && this.populationIndex[i][j] == 3) {
-          this.livingCells[i][j] = true;
-        }
-        if (this.livingCells[i][j]) {
-          if (
-            this.populationIndex[i][j] < 2 ||
-            this.populationIndex[i][j] > 3
-          ) {
-            this.livingCells[i][j] = false;
+    var sumOfLivingCells: number = 0;
+    this.livingCells.forEach(n =>
+      n.forEach(n => (sumOfLivingCells += Number(n)))
+    );
+    if (sumOfLivingCells == 0) {
+      this.evolutionIsRunning = false;
+    } else {
+      for (var i: number = 0; i < this.livingCells.length; i++) {
+        for (var j: number = 0; j < this.livingCells.length; j++) {
+          if (!this.livingCells[i][j] && this.populationIndex[i][j] == 3) {
+            this.livingCells[i][j] = true;
+          }
+          if (this.livingCells[i][j]) {
+            if (
+              this.populationIndex[i][j] < 2 ||
+              this.populationIndex[i][j] > 3
+            ) {
+              this.livingCells[i][j] = false;
+            }
           }
         }
       }
