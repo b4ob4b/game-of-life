@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Output, Input } from "@angular/core";
 @Component({
   selector: "app-controlpanel",
   templateUrl: "./controlpanel.component.html",
@@ -9,6 +9,7 @@ export class ControlpanelComponent {
 
   @Output() startEvolutionClicked = new EventEmitter();
   @Output() resizeClicked = new EventEmitter();
+  @Input() evolutionIsRunning: boolean;
 
   constructor() {}
 

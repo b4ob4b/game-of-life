@@ -1,6 +1,7 @@
 <app-controlpanel
   (resizeClicked)="onResizeClicked($event)"
   (startEvolutionClicked)="onStartEvolutionClicked($event)"
+  [evolutionIsRunning]="evolutionIsRunning"
 ></app-controlpanel>
 
 <div class="playground">

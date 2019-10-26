@@ -21,7 +21,7 @@
       class="btn btn-outline-success"
       (click)="startEvolution()"
     >
-      Start Evolution
+      {{ evolutionIsRunning ? "Stop Evolution" : "Start Evolution" }}
     </button>
   </div>
   <div class="col-3"></div>
