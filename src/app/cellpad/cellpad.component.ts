@@ -11,10 +11,14 @@ export class CellpadComponent {
   livingCells: boolean[][];
   populationIndex: number[][];
   evolutionIsRunning: boolean = false;
+  lastStates = new Array();
   private autoSaveInterval: number;
 
   constructor(private controller: ControlpanelComponent) {
     this.initializeCellPad(controller.sizeCellPad);
+    this.lastStates = Array(2)
+      .fill(0)
+      .map((x, i) => i);
   }
 
   onResizeClicked(cellPadSize: number): void {
@@ -84,25 +88,48 @@ export class CellpadComponent {
 
   checkNextLiveCycle(): void {
     this.checkNeighbours();
+    if (this.checkForChanges()) {
+      this.evolutionIsRunning = false;
+      window.clearInterval(this.autoSaveInterval);
+    } else {
+      this.calculateNextState();
+    }
+  }
+
+  checkForChanges(): boolean {
     var sumOfLivingCells: number = 0;
+    var hasStateChanged: boolean = false;
+
     this.livingCells.forEach(n =>
       n.forEach(n => (sumOfLivingCells += Number(n)))
     );
-    if (sumOfLivingCells == 0) {
-      this.evolutionIsRunning = false;
-    } else {
-      for (var i: number = 0; i < this.livingCells.length; i++) {
-        for (var j: number = 0; j < this.livingCells.length; j++) {
-          if (!this.livingCells[i][j] && this.populationIndex[i][j] == 3) {
-            this.livingCells[i][j] = true;
-          }
-          if (this.livingCells[i][j]) {
-            if (
-              this.populationIndex[i][j] < 2 ||
-              this.populationIndex[i][j] > 3
-            ) {
-              this.livingCells[i][j] = false;
-            }
+
+    var sumOfPopulationIndex: number = 0;
+    this.populationIndex.forEach(n =>
+      n.forEach(n => (sumOfPopulationIndex += n))
+    );
+
+    this.lastStates[0] = this.lastStates[1];
+    this.lastStates[1] = sumOfPopulationIndex;
+
+    hasStateChanged =
+      sumOfLivingCells == 0 || this.lastStates[0] == this.lastStates[1];
+
+    return hasStateChanged;
+  }
+
+  calculateNextState(): void {
+    for (var i: number = 0; i < this.livingCells.length; i++) {
+      for (var j: number = 0; j < this.livingCells.length; j++) {
+        if (!this.livingCells[i][j] && this.populationIndex[i][j] == 3) {
+          this.livingCells[i][j] = true;
+        }
+        if (this.livingCells[i][j]) {
+          if (
+            this.populationIndex[i][j] < 2 ||
+            this.populationIndex[i][j] > 3
+          ) {
+            this.livingCells[i][j] = false;
           }
         }
       }
