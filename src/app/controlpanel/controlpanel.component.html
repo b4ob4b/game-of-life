@@ -1,7 +1,7 @@
 <br />
 <br />
 <div class="row">
-  <div class="col-2"></div>
+  <div class="col-1"></div>
   <div class="col-3">
     Cell Pad Size:
     <input type="number" [(ngModel)]="sizeCellPad" />
@@ -18,12 +18,21 @@
   <div class="col-2">
     <button
       type="button"
+      class="btn btn-outline-info"
+      (click)="injectRandomLife()"
+    >
+      Inject Random Life
+    </button>
+  </div>
+  <div class="col-2">
+    <button
+      type="button"
       class="btn btn-outline-success"
       (click)="startEvolution()"
     >
       {{ evolutionIsRunning ? "Stop Evolution" : "Start Evolution" }}
     </button>
   </div>
-  <div class="col-3"></div>
+  <div class="col-2"></div>
 </div>
 <br />

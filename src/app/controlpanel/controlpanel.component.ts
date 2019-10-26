@@ -8,16 +8,22 @@ export class ControlpanelComponent {
   sizeCellPad: number = 10;
 
   @Output() startEvolutionClicked = new EventEmitter();
+  @Output() randomLifeClicked = new EventEmitter();
   @Output() resizeClicked = new EventEmitter();
+
   @Input() evolutionIsRunning: boolean;
 
   constructor() {}
 
-  resizeCellPad(): void {
-    this.resizeClicked.emit(this.sizeCellPad);
-  }
-
   startEvolution(): void {
     this.startEvolutionClicked.emit();
+  }
+
+  injectRandomLife(): void {
+    this.randomLifeClicked.emit();
+  }
+
+  resizeCellPad(): void {
+    this.resizeClicked.emit(this.sizeCellPad);
   }
 }

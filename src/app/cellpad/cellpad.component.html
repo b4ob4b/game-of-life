@@ -1,13 +1,14 @@
 <app-controlpanel
-  (resizeClicked)="onResizeClicked($event)"
   (startEvolutionClicked)="onStartEvolutionClicked($event)"
+  (randomLifeClicked)="onRandomLifeClicked($event)"
+  (resizeClicked)="onResizeClicked($event)"
   [evolutionIsRunning]="evolutionIsRunning"
 ></app-controlpanel>
 
 <div class="playground">
-  <div *ngFor="let x of width" style="display:inline">
+  <div *ngFor="let x of sideLength" style="display:inline">
     <div class="row">
-      <div *ngFor="let y of height">
+      <div *ngFor="let y of sideLength">
         <div class="col">
           <div
             class="cell"

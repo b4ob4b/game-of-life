@@ -7,19 +7,18 @@ import { ControlpanelComponent } from "../controlpanel/controlpanel.component";
   styleUrls: ["./cellpad.component.css"]
 })
 export class CellpadComponent {
-  height: number[];
-  width: number[];
+  sideLength: number[];
   livingCells: boolean[][];
   populationIndex: number[][];
   evolutionIsRunning: boolean = false;
   private autoSaveInterval: number;
 
   constructor(private controller: ControlpanelComponent) {
-    this.changeCellPadSize(controller.sizeCellPad);
+    this.initializeCellPad(controller.sizeCellPad);
   }
 
   onResizeClicked(cellPadSize: number): void {
-    this.changeCellPadSize(cellPadSize);
+    this.initializeCellPad(cellPadSize);
     this.evolutionIsRunning = false;
   }
 
@@ -36,17 +35,18 @@ export class CellpadComponent {
     }
   }
 
+  onRandomLifeClicked(): void {
+    this.initializeCellPad(this.sideLength.length, true);
+  }
+
   changeStatus(xCoordinate: number, yCoordinate: number): void {
     this.livingCells[xCoordinate][yCoordinate] = !this.livingCells[xCoordinate][
       yCoordinate
     ];
   }
 
-  changeCellPadSize(sizeCellPad): void {
-    this.height = Array(sizeCellPad)
-      .fill(0)
-      .map((x, i) => i);
-    this.width = Array(sizeCellPad)
+  initializeCellPad(sizeCellPad, randomLife = false): void {
+    this.sideLength = Array(sizeCellPad)
       .fill(0)
       .map((x, i) => i);
 
@@ -56,7 +56,11 @@ export class CellpadComponent {
       this.livingCells[i] = [];
       this.populationIndex[i] = [];
       for (var j: number = 0; j < sizeCellPad; j++) {
-        this.livingCells[i][j] = Math.random() >= 0.5;
+        if (randomLife) {
+          this.livingCells[i][j] = Math.random() >= 0.5;
+        } else {
+          this.livingCells[i][j] = false;
+        }
         this.populationIndex[i][j] = 0;
       }
     }
