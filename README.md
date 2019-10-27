@@ -1,27 +1,45 @@
-# GameOfLife
+# Game Of Life Simulation
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.3.
+This little app simulates Game Of Life according to simple rules:
 
-## Development server
+- Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+- Any live cell with two or three live neighbours lives on to the next generation.
+- Any live cell with more than three live neighbours dies, as if by overpopulation.
+- Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+![User Interface](UI.png)
 
-## Code scaffolding
+# How to build
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Clone the repo and install:
 
-## Build
+```
+git clone
+cd GameOfLife
+npm install
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+To test the app locally use
 
-## Running unit tests
+```
+npm start
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Now the app is available in [localhost:4200](localhost:4200).
 
-## Running end-to-end tests
+To build and run the app in a Docker:
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```
+docker image build -t game_of_life:1.0 .
+docker run --rm -p 3000:8080 --name game_of_life game_of_life:1.0
+```
 
-## Further help
+Now the app runs within a Docker Container and is accessible in [localhost:4200](localhost:4200)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+# Running in the Cloud
+
+A running example can be found in https://gameoflife-ukigudzrfq-ew.a.run.app/
+
+# Next Steps
+
+Currently there is an error and the app evolution stops in situation where it should keep running.
